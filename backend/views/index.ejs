@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>URL Shortener</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #27ae60;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    input[type="url"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background-color: #27ae60;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .label{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+    .background {
+      position: absolute;
+  inset: 0;
+  z-index: -10;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  background-image: 
+    linear-gradient(to right, #2ec51a7b 1px, transparent 1px),
+    linear-gradient(to bottom, #30b63d70 1px, transparent 1px);
+  background-size: 6rem 4rem;
+}
+
+
+    @media (max-width: 600px) {
+      form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      input[type="url"],
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+  <div class="container">
+    <h1>URL Shrinker</h1>
+    <form action="/shortUrls" method="POST">
+      <label for="fullUrl" class="sr-only label">URL-Link : </label>
+      <input required placeholder="URL" type="url" name="fullUrl" id="fullUrl">
+      <button type="submit">Shrink</button>
+    </form>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Your long URL</th>
+          <th>Short URL</th>
+          <th>Visits</th>
+        </tr>
+      </thead>
+      <tbody>
+  <% shortUrls.forEach(shortUrl => { %>
+    <tr>
+      <td>
+        <a href="<%= shortUrl.Url %>" target="_blank" rel="noopener noreferrer">
+          <%= shortUrl.Url %>
+        </a>
+      </td>
+      <td>
+        <a href="<%= 'http://localhost:5000/' + shortUrl.shortUrl %>" target="_blank" rel="noopener noreferrer">
+          <%= shortUrl.shortUrl %>
+        </a>
+      </td>
+      <td><%= shortUrl.numberOfVisits %></td>
+    </tr>
+  <% }) %>
+</tbody>
+    </table>
+  </div>
+  </div>
+</body>
+</html>
